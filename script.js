@@ -5,7 +5,7 @@
   const normalTab = document.getElementById('normal');
   const tabs = document.querySelectorAll('.tab');
 
-  // Allowed real extensions
+  // Allowed preview types
   const ALLOWED = {
     'png': 'image/png',
     'jpg': 'image/jpeg',
@@ -16,35 +16,36 @@
     'txt': 'text/plain'
   };
 
-  // Get extension without dot
+  // Mapping from H-extension → real extension
+  const H_MAP = {
+    'hng': 'png',
+    'hjpg': 'jpg',
+    'hjpeg': 'jpeg',
+    'hgif': 'gif',
+    'hmp4': 'mp4',
+    'hmp3': 'mp3',
+    'htxt': 'txt'
+  };
+
   function getExt(name) {
     const m = name.toLowerCase().match(/\.([^.]+)$/);
     return m ? m[1] : '';
   }
 
-  // Check if starts with H
   function isHExt(name) {
-    const ext = getExt(name);
-    return ext.startsWith('h') && ext.length > 1;
+    return H_MAP.hasOwnProperty(getExt(name));
   }
 
-  // Convert H-ext → real ext
   function realExt(name) {
-    const ext = getExt(name);
-    if (ext.startsWith('h') && ext.length > 1) {
-      return ext.slice(1); // "hng" → "ng"
-    }
-    return ext;
+    return H_MAP[getExt(name)] || getExt(name);
   }
 
-  // Human readable file size
   function humanSize(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
   }
 
-  // Handle uploads
   function handleFiles(files) {
     Array.from(files).forEach(file => {
       if (isHExt(file.name)) {
@@ -55,7 +56,6 @@
     });
   }
 
-  // Show preview for H-ext files
   function showPreview(file) {
     const ext = realExt(file.name);
     const mime = ALLOWED[ext] || '';
@@ -97,7 +97,6 @@
     previewsTab.prepend(card);
   }
 
-  // Show normal files (no preview, just rename box)
   function listNormal(file) {
     const card = document.createElement('article');
     card.className = 'card';
