@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HitBoys Custom Files</title>
+  <link rel="stylesheet" href="hitboys.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <h1>HitBoys Custom Files</h1>
+      <p class="subtitle">Upload & preview files — extensions' first letter become <code>H</code> for downloads</p>
+    </header>
+
+    <section class="uploader">
+      <div id="dropzone" class="dropzone">
+        <input id="fileInput" type="file" multiple accept=".png,.jpg,.jpeg,.gif,.mp4,.mp3,.txt" />
+        <div class="drop-inner">
+          <strong>Drag & drop files here</strong>
+          <span>or click to choose (PNG, JPG, GIF, MP4, MP3, TXT)</span>
+        </div>
+      </div>
+      <div class="hint">Tip: you can upload multiple files. Downloads will rename extensions (first letter → <code>H</code>).</div>
+    </section>
+
+    <section id="previews" class="previews" aria-live="polite"></section>
+
+    <footer class="footer">
+      <small>Made with matte black, purple & dark blue vibes.</small>
+    </footer>
+  </main>
+
+  <script src="hitboys.js"></script>
+</body>
+</html>
