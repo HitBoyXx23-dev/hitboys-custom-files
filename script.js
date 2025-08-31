@@ -5,7 +5,6 @@
   const normalTab = document.getElementById('normal');
   const tabs = document.querySelectorAll('.tab');
 
-  // Allowed preview types
   const ALLOWED = {
     'png': 'image/png',
     'jpg': 'image/jpeg',
@@ -16,7 +15,6 @@
     'txt': 'text/plain'
   };
 
-  // Mapping from H-extension → real extension
   const H_MAP = {
     'hng': 'png',
     'hpg': 'jpg',
@@ -94,12 +92,29 @@
     }
 
     card.appendChild(media);
+
+    // Add download button for previews
+    const downloadBtn = document.createElement('button');
+    downloadBtn.textContent = 'Download';
+    downloadBtn.className = 'btn';
+    downloadBtn.addEventListener('click', () => {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = file.name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+    card.appendChild(downloadBtn);
+
     previewsTab.prepend(card);
   }
 
   function listNormal(file) {
     const card = document.createElement('article');
     card.className = 'card';
+
     const name = document.createElement('div');
     name.className = 'name';
     name.textContent = file.name + ' (' + humanSize(file.size) + ')';
@@ -109,6 +124,22 @@
     renameBox.className = 'rename';
     renameBox.value = file.name;
     card.appendChild(renameBox);
+
+    const downloadBtn = document.createElement('button');
+    downloadBtn.textContent = 'Download';
+    downloadBtn.className = 'btn';
+    downloadBtn.addEventListener('click', () => {
+      const newName = renameBox.value.trim() || file.name;
+      const url = URL.createObjectURL(file);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = newName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+    card.appendChild(downloadBtn);
 
     normalTab.prepend(card);
   }
