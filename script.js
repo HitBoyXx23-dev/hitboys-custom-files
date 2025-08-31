@@ -19,12 +19,12 @@
   // Mapping from H-extension → real extension
   const H_MAP = {
     'hng': 'png',
-    'hjpg': 'jpg',
-    'hjpeg': 'jpeg',
-    'hgif': 'gif',
-    'hmp4': 'mp4',
-    'hmp3': 'mp3',
-    'htxt': 'txt'
+    'hpg': 'jpg',
+    'hpeg': 'jpeg',
+    'hif': 'gif',
+    'hp4': 'mp4',
+    'hp3': 'mp3',
+    'hxt': 'txt'
   };
 
   function getExt(name) {
