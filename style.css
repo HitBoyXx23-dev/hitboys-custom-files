@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b0b;
+  color: #eee;
+}
+
+.topbar {
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(90deg, #1e003d, #001a40);
+  color: #c6a8ff;
+}
+
+.dropzone {
+  border: 2px dashed #6a0dad;
+  margin: 1rem;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.dropzone.dragover {
+  background: rgba(106, 13, 173, 0.2);
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #222;
+  margin: 1rem;
+}
+.tab {
+  flex: 1;
+  padding: 0.8rem;
+  background: #111;
+  border: none;
+  color: #bbb;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+.tab.active {
+  background: #1e003d;
+  color: #fff;
+}
+
+.tab-content {
+  display: none;
+  padding: 1rem;
+}
+.tab-content.active {
+  display: block;
+}
+
+.card {
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+.card .name {
+  font-weight: bold;
+}
+.card .btn {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #6a0dad;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+.card .btn:hover {
+  background: #8c2be2;
+}
+
+textarea.rename {
+  width: 100%;
+  margin-top: 0.5rem;
+}
