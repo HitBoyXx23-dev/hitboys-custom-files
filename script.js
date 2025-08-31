@@ -5,6 +5,7 @@
   const normalTab = document.getElementById('normal');
   const tabs = document.querySelectorAll('.tab');
 
+  // Allowed real extensions
   const ALLOWED = {
     'png': 'image/png',
     'jpg': 'image/jpeg',
@@ -15,22 +16,35 @@
     'txt': 'text/plain'
   };
 
+  // Get extension without dot
   function getExt(name) {
     const m = name.toLowerCase().match(/\.([^.]+)$/);
     return m ? m[1] : '';
   }
 
+  // Check if starts with H
   function isHExt(name) {
     const ext = getExt(name);
     return ext.startsWith('h') && ext.length > 1;
   }
 
+  // Convert H-ext → real ext
+  function realExt(name) {
+    const ext = getExt(name);
+    if (ext.startsWith('h') && ext.length > 1) {
+      return ext.slice(1); // "hng" → "ng"
+    }
+    return ext;
+  }
+
+  // Human readable file size
   function humanSize(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
   }
 
+  // Handle uploads
   function handleFiles(files) {
     Array.from(files).forEach(file => {
       if (isHExt(file.name)) {
@@ -41,8 +55,9 @@
     });
   }
 
+  // Show preview for H-ext files
   function showPreview(file) {
-    const ext = getExt(file.name).slice(1); // strip H
+    const ext = realExt(file.name);
     const mime = ALLOWED[ext] || '';
     const url = URL.createObjectURL(file);
 
@@ -75,13 +90,14 @@
       reader.readAsText(file);
     } else {
       media = document.createElement('div');
-      media.textContent = 'Preview not supported';
+      media.textContent = 'Preview not supported (.' + ext + ')';
     }
 
     card.appendChild(media);
     previewsTab.prepend(card);
   }
 
+  // Show normal files (no preview, just rename box)
   function listNormal(file) {
     const card = document.createElement('article');
     card.className = 'card';
