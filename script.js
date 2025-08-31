@@ -12,7 +12,9 @@
     'gif': 'image/gif',
     'mp4': 'video/mp4',
     'mp3': 'audio/mpeg',
-    'txt': 'text/plain'
+    'txt': 'text/plain',
+    'hpp': 'text/plain',  // optional safeguard
+    'h': 'text/plain'     // optional safeguard
   };
 
   const H_MAP = {
@@ -22,7 +24,8 @@
     'hif': 'gif',
     'hp4': 'mp4',
     'hp3': 'mp3',
-    'hxt': 'txt'
+    'hxt': 'txt',
+    'h++': 'txt'  // NEW: support .h++ → treat as text/plain
   };
 
   function getExt(name) {
