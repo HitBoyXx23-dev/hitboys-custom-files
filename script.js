@@ -83,6 +83,8 @@
     } else if (mime === 'text/plain') {
       media = document.createElement('textarea');
       media.readOnly = true;
+      media.style.width = '100%';
+      media.style.height = '300px';
       const reader = new FileReader();
       reader.onload = e => media.value = e.target.result;
       reader.readAsText(file);
@@ -93,7 +95,7 @@
 
     card.appendChild(media);
 
-    // Add download button for previews
+    // Download button for previews
     const downloadBtn = document.createElement('button');
     downloadBtn.textContent = 'Download';
     downloadBtn.className = 'btn';
@@ -154,7 +156,7 @@
     });
   });
 
-  // drag & drop
+  // Drag & drop
   ['dragenter','dragover'].forEach(evt => {
     dropzone.addEventListener(evt, e => {
       e.preventDefault();
