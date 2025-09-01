@@ -15,6 +15,7 @@
     'txt': 'text/plain',
     'cpp': 'text/plain',
     'c++': 'text/plain',
+    'zip': 'application/zip',
   };
 
   const H_MAP = {
@@ -25,8 +26,9 @@
     'hp4': 'mp4',
     'hp3': 'mp3',
     'hxt': 'txt',
-    'h++': 'txt', // support .h++
-    'hpp': 'txt'  // support .hpp
+    'h++': 'txt',
+    'hpp': 'txt',
+    'hip': 'zip', // ✅ support .hip → zip
   };
 
   function getExt(name) {
@@ -71,6 +73,7 @@
     card.appendChild(name);
 
     let media;
+
     if (mime.startsWith('image/')) {
       media = document.createElement('img');
       media.src = url;
@@ -92,6 +95,30 @@
       const reader = new FileReader();
       reader.onload = e => media.value = e.target.result;
       reader.readAsText(file);
+    } else if (mime === 'application/zip') {
+      media = document.createElement('div');
+      media.textContent = 'Reading ZIP...';
+
+      const reader = new FileReader();
+      reader.onload = async e => {
+        try {
+          const zip = await JSZip.loadAsync(e.target.result);
+          media.textContent = '';
+          const list = document.createElement('ul');
+          Object.keys(zip.files).forEach(name => {
+            const li = document.createElement('li');
+            const entry = zip.files[name];
+            li.textContent = name + (entry.dir
+              ? " (folder)"
+              : " (" + humanSize(entry._data.uncompressedSize) + ")");
+            list.appendChild(li);
+          });
+          media.appendChild(list);
+        } catch (err) {
+          media.textContent = 'Error reading ZIP: ' + err.message;
+        }
+      };
+      reader.readAsArrayBuffer(file);
     } else {
       media = document.createElement('div');
       media.textContent = 'Preview not supported (.' + ext + ')';
@@ -99,7 +126,6 @@
 
     card.appendChild(media);
 
-    // Download button for previews
     const downloadBtn = document.createElement('button');
     downloadBtn.textContent = 'Download';
     downloadBtn.className = 'btn';
@@ -150,7 +176,6 @@
     normalTab.prepend(card);
   }
 
-  // Tabs
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
@@ -160,7 +185,6 @@
     });
   });
 
-  // Drag & drop
   ['dragenter','dragover'].forEach(evt => {
     dropzone.addEventListener(evt, e => {
       e.preventDefault();
