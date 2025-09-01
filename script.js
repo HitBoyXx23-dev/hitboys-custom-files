@@ -25,8 +25,8 @@
     'hp4': 'mp4',
     'hp3': 'mp3',
     'hxt': 'txt',
-    'h++': 'txt'  // NEW: support .h++ → treat as text/plain
-    'hpp': 'txt'  // NEW: support .hpp → treat as text/plain
+    'h++': 'txt', // support .h++
+    'hpp': 'txt'  // support .hpp
   };
 
   function getExt(name) {
