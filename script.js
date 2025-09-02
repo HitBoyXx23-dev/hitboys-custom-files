@@ -59,7 +59,7 @@
         // show preview with original file
         showPreview(file);
 
-        // always list in rename with mapped extension
+        // list in rename with mapped extension
         const mappedExt = realExt(file.name);
         const newName = file.name.replace(/\.[^.]+$/, '.' + mappedExt);
         const renamedFile = new File([file], newName, {
@@ -80,6 +80,7 @@
 
     const card = document.createElement('article');
     card.className = 'card';
+
     const name = document.createElement('div');
     name.className = 'name';
     name.textContent = file.name + ' (' + humanSize(file.size) + ')';
@@ -123,7 +124,8 @@
             const entry = zip.files[name];
             li.textContent = name + (entry.dir
               ? " (folder)"
-              : " (" + humanSize(entry._data.uncompressedSize) + ")");
+              : " (" + humanSize(entry._data.uncompressedSize) + ")"
+            );
             list.appendChild(li);
           });
           media.appendChild(list);
@@ -204,12 +206,14 @@
       dropzone.classList.add('dragover');
     });
   });
+
   ['dragleave','drop'].forEach(evt => {
     dropzone.addEventListener(evt, e => {
       e.preventDefault();
       dropzone.classList.remove('dragover');
     });
   });
+
   dropzone.addEventListener('drop', e => {
     if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
   });
