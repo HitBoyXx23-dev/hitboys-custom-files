@@ -16,7 +16,7 @@
     'cpp': 'text/plain',
     'c++': 'text/plain',
     'zip': 'application/zip',
-    'mkv': 'video/x-matroska', // ✅ fixed here
+    'mkv': 'video/x-matroska',
   };
 
   const H_MAP = {
@@ -56,9 +56,18 @@
   function handleFiles(files) {
     Array.from(files).forEach(file => {
       if (isHExt(file.name)) {
+        // show preview with original file
         showPreview(file);
+
+        // also list in rename with mapped extension
+        const mappedExt = realExt(file.name);
+        const newName = file.name.replace(/\.[^.]+$/, '.' + mappedExt);
+        const renamedFile = new File([file], newName, {
+          type: ALLOWED[mappedExt] || file.type
+        });
+        listNormal(renamedFile, newName);
       } else {
-        listNormal(file);
+        listNormal(file, file.name);
       }
     });
   }
@@ -146,7 +155,7 @@
     previewsTab.prepend(card);
   }
 
-  function listNormal(file) {
+  function listNormal(file, suggestedName) {
     const card = document.createElement('article');
     card.className = 'card';
 
@@ -157,7 +166,7 @@
 
     const renameBox = document.createElement('textarea');
     renameBox.className = 'rename';
-    renameBox.value = file.name;
+    renameBox.value = suggestedName || file.name;
     card.appendChild(renameBox);
 
     const downloadBtn = document.createElement('button');
