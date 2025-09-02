@@ -16,7 +16,7 @@
     'cpp': 'text/plain',
     'c++': 'text/plain',
     'zip': 'application/zip',
-    'mkv': 'video/mkv,
+    'mkv': 'video/x-matroska', // ✅ fixed here
   };
 
   const H_MAP = {
