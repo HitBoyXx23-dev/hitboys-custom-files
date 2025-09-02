@@ -2,7 +2,7 @@
   const dropzone = document.getElementById('dropzone');
   const fileInput = document.getElementById('fileInput');
   const previewsTab = document.getElementById('previews');
-  const normalTab = document.getElementById('normal');
+  const normalTab = document.getElementById('rename'); // fixed ID to match HTML
   const tabs = document.querySelectorAll('.tab');
 
   const ALLOWED = {
@@ -74,6 +74,8 @@
   }
 
   function showPreview(file) {
+    if (!previewsTab) return;
+
     const ext = realExt(file.name);
     const mime = ALLOWED[ext] || '';
     const url = URL.createObjectURL(file);
@@ -159,6 +161,8 @@
   }
 
   function listNormal(file, suggestedName) {
+    if (!normalTab) return;
+
     const card = document.createElement('article');
     card.className = 'card';
 
