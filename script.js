@@ -59,7 +59,7 @@
         // show preview with original file
         showPreview(file);
 
-        // also list in rename with mapped extension
+        // always list in rename with mapped extension
         const mappedExt = realExt(file.name);
         const newName = file.name.replace(/\.[^.]+$/, '.' + mappedExt);
         const renamedFile = new File([file], newName, {
@@ -67,6 +67,7 @@
         });
         listNormal(renamedFile, newName);
       } else {
+        // normal files go straight to rename
         listNormal(file, file.name);
       }
     });
