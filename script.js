@@ -16,6 +16,7 @@
     'cpp': 'text/plain',
     'c++': 'text/plain',
     'zip': 'application/zip',
+    'mkv': 'video/mkv,
   };
 
   const H_MAP = {
@@ -30,6 +31,7 @@
     'hpp': 'txt',
     'hip': 'zip',
     'hit': 'txt',
+    'hkv': 'mkv',
   };
 
   function getExt(name) {
