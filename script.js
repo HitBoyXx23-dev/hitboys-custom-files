@@ -28,7 +28,8 @@
     'hxt': 'txt',
     'h++': 'txt',
     'hpp': 'txt',
-    'hip': 'zip', // ✅ support .hip → zip
+    'hip': 'zip',
+    'hit': 'txt',
   };
 
   function getExt(name) {
