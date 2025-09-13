@@ -12,6 +12,7 @@
     'gif': 'image/gif',
     'mp4': 'video/mp4',
     'mp3': 'audio/mpeg',
+    'mov': 'video/quicktime',
     'txt': 'text/plain',
     'cpp': 'text/plain',
     'c++': 'text/plain',
@@ -32,6 +33,7 @@
     'hip': 'zip',
     'hit': 'txt',
     'hkv': 'mkv',
+    'hov': 'mov',
   };
 
   function getExt(name) {
